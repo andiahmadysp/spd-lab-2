@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const AUTH_BASE_URL = import.meta.env.VITE_API_URL
-  ? import.meta.env.VITE_API_URL.replace('/products', '/auth')
-  : 'http://localhost:5001/api/auth';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+const AUTH_BASE_URL = `${API_BASE}/auth`;
+
 
 /**
  * Register a new user
