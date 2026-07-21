@@ -25,8 +25,11 @@ export const getProducts = async () => {
 };
 
 export const getProductById = async (id) => {
+  const token = localStorage.getItem('shoppu_token');
   try {
-    const response = await axios.get(`${API_BASE_URL}/${id}`);
+    const response = await axios.get(`${API_BASE_URL}/${id}`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {}
+    });
     return response.data;
   } catch (error) {
     console.warn(`Backend API not reachable for ID ${id} - using fallback data.`, error.message);
@@ -34,3 +37,4 @@ export const getProductById = async (id) => {
     return item || fallbackProducts[0];
   }
 };
+

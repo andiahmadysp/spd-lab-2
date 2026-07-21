@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
+const { protect } = require('../middleware/authMiddleware');
 
 // @route   GET /api/products
 // @desc    Get all products
@@ -17,8 +18,8 @@ router.get('/', async (req, res) => {
 
 // @route   GET /api/products/:id
 // @desc    Get product by ID
-// @access  Public
-router.get('/:id', async (req, res) => {
+// @access  Private (requires JWT)
+router.get('/:id', protect, async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {
