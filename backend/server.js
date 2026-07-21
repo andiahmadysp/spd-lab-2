@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const productRoutes = require('./routes/productRoutes');
+const authRoutes = require('./routes/authRoutes');
 const Product = require('./models/Product');
 const seedProducts = require('./data/seedData');
 
@@ -28,6 +29,7 @@ connectDB().then(async () => {
 
 // Routes
 app.use('/api/products', productRoutes);
+app.use('/api/auth', authRoutes);
 
 // Optional Manual Seed Endpoint
 app.post('/api/seed', async (req, res) => {
@@ -51,7 +53,10 @@ app.get('/', (req, res) => {
       createProduct: 'POST /api/products',
       updateProduct: 'PUT /api/products/:id',
       deleteProduct: 'DELETE /api/products/:id',
-      reseedDatabase: 'POST /api/seed'
+      reseedDatabase: 'POST /api/seed',
+      register: 'POST /api/auth/register',
+      login: 'POST /api/auth/login',
+      getMe: 'GET /api/auth/me (requires Bearer token)'
     }
   });
 });
